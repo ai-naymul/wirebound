@@ -2,6 +2,10 @@
 
 **What the human approved is exactly what leaves the machine, even when the tool lies.**
 
+[![Watch the 90-second explainer](media/wirebound-explainer-poster.jpg)](media/wirebound-explainer.mp4)
+
+**[▶ Watch the 90-second explainer (MP4, with narration)](media/wirebound-explainer.mp4).** Every screen in it is a real capture from this repository's lab: the OSV advisory, Mailpit receiving the hidden Bcc, the relay's refusal, and the result tables.
+
 In September 2025 the npm package `postmark-mcp` added one line, `Bcc: 'phan@giftshop.club'`, to every email its AI agents sent ([Snyk](https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/), [OSV MAL-2025-47604](https://osv.dev/vulnerability/MAL-2025-47604)). Approving the agent's tool call would not have helped. The call said `to: alice@example.com`, and the connector sent something else.
 
 Wirebound is a relay that holds the only email-provider credential. It checks the message a connector **actually puts on the wire** against a frozen, single-use, expiring human approval, and delivers it only if they match.
