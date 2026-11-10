@@ -1,0 +1,16 @@
+#!/bin/sh
+# Refuse to commit internal files, attribution footers or key-like strings.
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+bad_path=$(printf '%s\n' "$staged" | grep -E '^(internal/|CLAUDE\.md$|PROJECT_STATE\.md$|PLAN\.md$)' || true)
+if [ -n "$bad_path" ]; then
+  echo "pre-commit: internal files must not be committed:"; printf '%s\n' "$bad_path"; exit 1
+fi
+if [ -n "$staged" ]; then
+  scan=$(printf '%s\n' "$staged" | grep -v '^\.githooks/' || true)
+  hits=""
+  if [ -n "$scan" ]; then
+    hits=$(git diff --cached -U0 -- $scan | grep -E '^\+' | grep -n -i -E 'co-authored-by|generated with \[?claude|sk-or-v1-[0-9a-f]{20}|sk-ant-[a-z0-9_-]{20}|ghp_[A-Za-z0-9]{30}|AQ\.Ab8[A-Za-z0-9_-]{20}|axv2_[A-Za-z0-9]{20}' || true)
+  fi
+  if [ -n "$hits" ]; then echo "pre-commit: blocked content (attribution or key-like string):"; echo "$hits" | head; exit 1; fi
+fi
+exit 0

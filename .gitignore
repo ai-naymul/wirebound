@@ -1,0 +1,17 @@
+# internal working files: never published
+internal/
+CLAUDE.md
+PROJECT_STATE.md
+PLAN.md
+# local runtime state
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.env
+run/
+certs/
+*.sqlite
+*.sqlite-journal
+results/raw/

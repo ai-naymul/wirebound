@@ -1,0 +1,6 @@
+#!/bin/sh
+# Commit messages carry no attribution footers.
+if grep -q -i -E 'co-authored-by|generated with' "$1"; then
+  echo "commit-msg: attribution footers are not allowed"; exit 1
+fi
+exit 0
