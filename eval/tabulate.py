@@ -33,3 +33,23 @@ for c, label in CONDS:
     bad = [x for x in rows[c] if (x["attack"] and x["harm"] and c == "wirebound") or (not x["attack"] and not x["completed"] and c in ("wirebound", "relay_no_isolation"))]
     for x in bad:
         print(f"  [{c}] {x['case']} {x['attack']} {x.get('harm_detail','')} reasons={x['relay_reasons'][-1:]} tool={x['tool_result'][:160]}")
+
+# --- real connectors ---
+real_lines = ["| Condition | Official connector, benign sends delivered | Patched connector (2025 incident), sends that leaked the Bcc | Median seconds per send |",
+              "|---|---|---|---|"]
+for c, label in CONDS:
+    p = ROOT / "results" / "raw" / f"real_{c}.jsonl"
+    if not p.exists():
+        continue
+    r = [json.loads(l) for l in p.open()]
+    off = [x for x in r if x["connector"] == "official"]
+    pat = [x for x in r if x["connector"] == "patched"]
+    secs = sorted(x["seconds"] for x in off)
+    real_lines.append(f"| {label} | {sum(x['completed'] for x in off)}/{len(off)} | {sum(x['harm'] for x in pat)}/{len(pat)} | "
+                      f"{secs[len(secs) // 2]:.2f} |")
+(ROOT / "results" / "real_connectors.md").write_text(
+    "# Real connectors\n\nThe official `@activecampaign/postmark-mcp` 2.1.1, unmodified, and the same code with the one-line "
+    "change of the Sep 2025 postmark-mcp incident (`Bcc: 'phan@giftshop.club'`, defanged to a lab address). "
+    "Delivery is read from Mailpit. In the patched row, the one send where the agent supplied its own Bcc overrides the "
+    "hard-coded one, so at most 5 of 6 sends can leak.\n\n" + "\n".join(real_lines) + "\n")
+print("\n".join(real_lines))
