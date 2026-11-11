@@ -1,0 +1,40 @@
+{
+ "invocations": [
+  {
+   "attackers": {
+    "fable": "fable",
+    "gemini": "gemini-3.8-flash",
+    "deepseek": "deepseek/deepseek-v4.1-flash-1017",
+    "glm": "z-ai/glm-5.3"
+   },
+   "rounds": {
+    "fable": 4,
+    "gemini": 6,
+    "deepseek": 6,
+    "glm": 6
+   },
+   "openrouter_budget_usd": 1.2,
+   "frozen_commit": "3add039d70a11a6d2103ec7975b68cad36e09364",
+   "wirebound_dir_unmodified": true,
+   "started": 1794377814.210001,
+   "finished": 1794380373.927128,
+   "openrouter_spent_usd": 0.0144
+  },
+  {
+   "attackers": {
+    "qwen": "qwen/qwen3.8-flash",
+    "deepseek": "deepseek/deepseek-v4.1-flash-1017"
+   },
+   "rounds": {
+    "qwen": 6,
+    "deepseek": 6
+   },
+   "openrouter_budget_usd": 0.5,
+   "frozen_commit": "3add039d70a11a6d2103ec7975b68cad36e09364",
+   "wirebound_dir_unmodified": true,
+   "started": 1794380478.2103198,
+   "finished": 1794380976.971786,
+   "openrouter_spent_usd": 0.0426
+  }
+ ]
+}

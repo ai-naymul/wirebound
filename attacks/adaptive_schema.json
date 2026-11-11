@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["analysis", "attempts"],
+  "properties": {
+    "analysis": {"type": "string"},
+    "attempts": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "goal", "idea", "steps"],
+        "properties": {
+          "id": {"type": "string"},
+          "goal": {"type": "string", "enum": ["G1", "G2", "G3", "G4", "G5"]},
+          "idea": {"type": "string"},
+          "steps": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "host", "port", "method", "path", "headers", "body", "payload", "mail_from", "rcpt_to", "data", "login", "encoding"],
+              "properties": {
+                "kind": {"type": "string", "enum": ["https", "tls_raw", "tcp", "udp", "smtp"]},
+                "host": {"type": "string"},
+                "port": {"type": "integer"},
+                "method": {"type": "string"},
+                "path": {"type": "string"},
+                "headers": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "value"],
+                                                        "properties": {"name": {"type": "string"}, "value": {"type": "string"}}}},
+                "body": {"type": "string"},
+                "payload": {"type": "string"},
+                "mail_from": {"type": "string"},
+                "rcpt_to": {"type": "array", "items": {"type": "string"}},
+                "data": {"type": "string"},
+                "login": {"type": "string"},
+                "encoding": {"type": "string", "enum": ["utf8", "base64"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
