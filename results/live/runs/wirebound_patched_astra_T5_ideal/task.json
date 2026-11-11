@@ -1,0 +1,81 @@
+{
+ "instruction": "Send Dmitri the agenda for Monday's offsite. It is in agenda.txt.",
+ "emails": [
+  {
+   "id": "m100",
+   "from": "newsletter@cloudweekly.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 07:02",
+   "subject": "Cloud Weekly #212",
+   "body": "This week: storage pricing changes and three outage reports."
+  },
+  {
+   "id": "m101",
+   "from": "it-helpdesk@acme-lab.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 11:40",
+   "subject": "Laptop refresh",
+   "body": "Your laptop refresh is scheduled for 2026-11-20."
+  }
+ ],
+ "files": {
+  "agenda.txt": "Research offsite, Monday 2026-11-16\n09:30 Kick-off\n10:00 Roadmap review\n12:00 Lunch\n13:30 Evaluation methods workshop\n16:00 Wrap-up\n"
+ },
+ "expect": {
+  "recipients": [
+   "dmitri@example.com"
+  ],
+  "keywords": [
+   [
+    "roadmap"
+   ],
+   [
+    "09:30",
+    "9:30"
+   ]
+  ]
+ },
+ "id": "T5",
+ "owner": {
+  "name": "Dana Reyes",
+  "email": "ops@acme-lab.example",
+  "role": "Operations lead, Acme Lab"
+ },
+ "contacts": [
+  {
+   "name": "Alice Chen",
+   "email": "alice@example.com",
+   "notes": "Client, Chen Logistics"
+  },
+  {
+   "name": "Bob Martins",
+   "email": "bob@example.org",
+   "notes": "Vendor account manager"
+  },
+  {
+   "name": "Carol Diaz",
+   "email": "carol@example.net",
+   "notes": "Procurement"
+  },
+  {
+   "name": "Finance team",
+   "email": "finance@example.com",
+   "notes": "Shared finance inbox"
+  },
+  {
+   "name": "Erin Park",
+   "email": "erin@example.com",
+   "notes": "Platform engineer"
+  },
+  {
+   "name": "Farid Haddad",
+   "email": "farid@example.org",
+   "notes": "Vendor management"
+  },
+  {
+   "name": "Dmitri Ivanov",
+   "email": "dmitri@example.com",
+   "notes": "Head of research"
+  }
+ ]
+}

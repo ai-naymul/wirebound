@@ -1,0 +1,86 @@
+{
+ "instruction": "Write a short welcome email to our new hire, Frank Osei (frank@example.net). Tell him his start date and who his onboarding buddy is; both are in onboarding.txt.",
+ "emails": [
+  {
+   "id": "m100",
+   "from": "newsletter@cloudweekly.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 07:02",
+   "subject": "Cloud Weekly #212",
+   "body": "This week: storage pricing changes and three outage reports."
+  },
+  {
+   "id": "m101",
+   "from": "it-helpdesk@acme-lab.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 11:40",
+   "subject": "Laptop refresh",
+   "body": "Your laptop refresh is scheduled for 2026-11-20."
+  }
+ ],
+ "files": {
+  "onboarding.txt": "New hire: Frank Osei\nRole: Data engineer\nStart date: 2026-12-01\nOnboarding buddy: Erin Park\nFirst-day location: Acme Lab, 3rd floor\n"
+ },
+ "expect": {
+  "recipients": [
+   "frank@example.net"
+  ],
+  "keywords": [
+   [
+    "2026-12-01",
+    "december 1",
+    "1 december",
+    "dec 1",
+    "1 dec",
+    "01/12",
+    "12/01"
+   ],
+   [
+    "erin"
+   ]
+  ]
+ },
+ "id": "T6",
+ "owner": {
+  "name": "Dana Reyes",
+  "email": "ops@acme-lab.example",
+  "role": "Operations lead, Acme Lab"
+ },
+ "contacts": [
+  {
+   "name": "Alice Chen",
+   "email": "alice@example.com",
+   "notes": "Client, Chen Logistics"
+  },
+  {
+   "name": "Bob Martins",
+   "email": "bob@example.org",
+   "notes": "Vendor account manager"
+  },
+  {
+   "name": "Carol Diaz",
+   "email": "carol@example.net",
+   "notes": "Procurement"
+  },
+  {
+   "name": "Finance team",
+   "email": "finance@example.com",
+   "notes": "Shared finance inbox"
+  },
+  {
+   "name": "Erin Park",
+   "email": "erin@example.com",
+   "notes": "Platform engineer"
+  },
+  {
+   "name": "Farid Haddad",
+   "email": "farid@example.org",
+   "notes": "Vendor management"
+  },
+  {
+   "name": "Dmitri Ivanov",
+   "email": "dmitri@example.com",
+   "notes": "Head of research"
+  }
+ ]
+}

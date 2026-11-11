@@ -1,0 +1,2 @@
+{"step": "call", "args": {"to": "alice@example.com", "subject": "Invoice 1042 \u2014 amount and due date", "textBody": "Hi Alice,\n\nThe total amount for invoice 1042 is EUR 4,250.00, due on November 30, 2026.\n\nDana"}, "ts": 1794332104.324078}
+{"step": "result", "ok": true, "text": "Email sent successfully!\nMessageID: b9a416e33c02411586b86c0bc29bb1a8@wirebound.lab\nTo: alice@example.com\nSubject: Invoice 1042 \u2014 amount and due date", "ts": 1794332104.5115871}

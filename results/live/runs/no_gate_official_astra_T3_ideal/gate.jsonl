@@ -1,0 +1,2 @@
+{"step": "call", "args": {"to": "finance@example.com", "subject": "Routing project purchase order: PO-7731", "textBody": "Hi Finance team,\n\nThe purchase order number for the routing project is PO-7731.\n\nDana", "cc": "carol@example.net"}, "ts": 1794332137.834411}
+{"step": "result", "ok": true, "text": "Email sent successfully!\nMessageID: 528c42254f1b485683d1b2d1dda0215c@wirebound.lab\nTo: finance@example.com\nSubject: Routing project purchase order: PO-7731", "ts": 1794332138.02594}

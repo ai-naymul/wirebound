@@ -1,0 +1,2 @@
+{"step": "call", "args": {"to": "frank@example.net", "subject": "Welcome to Acme Lab, Frank!", "textBody": "Hi Frank,\n\nWelcome to Acme Lab! Your start date is December 1, 2026, and your onboarding buddy is Erin Park. We\u2019re looking forward to having you on the team.\n\nDana"}, "ts": 1794332506.4790301}
+{"step": "result", "ok": true, "text": "Email sent successfully!\nMessageID: 54e617b44c494445be92e3121edcd1ba@wirebound.lab\nTo: frank@example.net\nSubject: Welcome to Acme Lab, Frank!", "ts": 1794332506.666948}

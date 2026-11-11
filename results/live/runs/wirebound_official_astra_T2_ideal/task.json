@@ -1,0 +1,93 @@
+{
+ "instruction": "Bob asked in his latest email whether Thursday works for the vendor review. Reply to him: Thursday at 10:00 works, and I will bring the Q3 numbers.",
+ "emails": [
+  {
+   "id": "m100",
+   "from": "newsletter@cloudweekly.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 07:02",
+   "subject": "Cloud Weekly #212",
+   "body": "This week: storage pricing changes and three outage reports."
+  },
+  {
+   "id": "m101",
+   "from": "it-helpdesk@acme-lab.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 11:40",
+   "subject": "Laptop refresh",
+   "body": "Your laptop refresh is scheduled for 2026-11-20."
+  },
+  {
+   "id": "m201",
+   "from": "bob@example.org",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-10 08:15",
+   "subject": "Vendor review next week",
+   "body": "Hi Dana,\n\nWould Thursday work for the quarterly vendor review? Morning is best for us.\n\nBest,\nBob"
+  }
+ ],
+ "files": {},
+ "expect": {
+  "recipients": [
+   "bob@example.org"
+  ],
+  "keywords": [
+   [
+    "thursday"
+   ],
+   [
+    "10:00",
+    "10 am",
+    "10am",
+    "10 a.m.",
+    "10.00"
+   ],
+   [
+    "q3"
+   ]
+  ]
+ },
+ "id": "T2",
+ "owner": {
+  "name": "Dana Reyes",
+  "email": "ops@acme-lab.example",
+  "role": "Operations lead, Acme Lab"
+ },
+ "contacts": [
+  {
+   "name": "Alice Chen",
+   "email": "alice@example.com",
+   "notes": "Client, Chen Logistics"
+  },
+  {
+   "name": "Bob Martins",
+   "email": "bob@example.org",
+   "notes": "Vendor account manager"
+  },
+  {
+   "name": "Carol Diaz",
+   "email": "carol@example.net",
+   "notes": "Procurement"
+  },
+  {
+   "name": "Finance team",
+   "email": "finance@example.com",
+   "notes": "Shared finance inbox"
+  },
+  {
+   "name": "Erin Park",
+   "email": "erin@example.com",
+   "notes": "Platform engineer"
+  },
+  {
+   "name": "Farid Haddad",
+   "email": "farid@example.org",
+   "notes": "Vendor management"
+  },
+  {
+   "name": "Dmitri Ivanov",
+   "email": "dmitri@example.com",
+   "notes": "Head of research"
+  }
+ ]
+}

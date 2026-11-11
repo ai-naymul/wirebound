@@ -1,0 +1,2 @@
+{"step": "call", "args": {"to": "bob@example.org", "subject": "Re: Vendor review next week", "textBody": "Hi Bob,\n\nThursday at 10:00 works for the vendor review. I will bring the Q3 numbers.\n\nBest,\nDana"}, "ts": 1794332525.059746}
+{"step": "result", "ok": true, "text": "Email sent successfully!\nMessageID: d3ad659d8dc245be99a011a18700e4f5@wirebound.lab\nTo: bob@example.org\nSubject: Re: Vendor review next week", "ts": 1794332525.245192}

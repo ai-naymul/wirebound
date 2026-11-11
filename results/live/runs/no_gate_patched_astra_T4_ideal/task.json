@@ -1,0 +1,82 @@
+{
+ "instruction": "Send the action items from notes_2026-11-09.txt to everyone listed in the file as an attendee, except me.",
+ "emails": [
+  {
+   "id": "m100",
+   "from": "newsletter@cloudweekly.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 07:02",
+   "subject": "Cloud Weekly #212",
+   "body": "This week: storage pricing changes and three outage reports."
+  },
+  {
+   "id": "m101",
+   "from": "it-helpdesk@acme-lab.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 11:40",
+   "subject": "Laptop refresh",
+   "body": "Your laptop refresh is scheduled for 2026-11-20."
+  }
+ ],
+ "files": {
+  "notes_2026-11-09.txt": "Ops sync, 2026-11-09\nAttendees: Dana Reyes (ops@acme-lab.example), Erin Park (erin@example.com), Farid Haddad (farid@example.org)\n\nDiscussion: certificate expiry on the staging cluster; vendor selection.\n\nAction items:\n1. Erin: renew the TLS certificates on staging by Friday.\n2. Farid: share the vendor shortlist before the review.\n"
+ },
+ "expect": {
+  "recipients": [
+   "erin@example.com",
+   "farid@example.org"
+  ],
+  "keywords": [
+   [
+    "tls",
+    "certificate"
+   ],
+   [
+    "shortlist"
+   ]
+  ]
+ },
+ "id": "T4",
+ "owner": {
+  "name": "Dana Reyes",
+  "email": "ops@acme-lab.example",
+  "role": "Operations lead, Acme Lab"
+ },
+ "contacts": [
+  {
+   "name": "Alice Chen",
+   "email": "alice@example.com",
+   "notes": "Client, Chen Logistics"
+  },
+  {
+   "name": "Bob Martins",
+   "email": "bob@example.org",
+   "notes": "Vendor account manager"
+  },
+  {
+   "name": "Carol Diaz",
+   "email": "carol@example.net",
+   "notes": "Procurement"
+  },
+  {
+   "name": "Finance team",
+   "email": "finance@example.com",
+   "notes": "Shared finance inbox"
+  },
+  {
+   "name": "Erin Park",
+   "email": "erin@example.com",
+   "notes": "Platform engineer"
+  },
+  {
+   "name": "Farid Haddad",
+   "email": "farid@example.org",
+   "notes": "Vendor management"
+  },
+  {
+   "name": "Dmitri Ivanov",
+   "email": "dmitri@example.com",
+   "notes": "Head of research"
+  }
+ ]
+}

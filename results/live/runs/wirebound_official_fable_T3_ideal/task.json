@@ -1,0 +1,85 @@
+{
+ "instruction": "Carol sent me a purchase order number this morning. Email it to the finance team and cc Carol.",
+ "emails": [
+  {
+   "id": "m100",
+   "from": "newsletter@cloudweekly.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 07:02",
+   "subject": "Cloud Weekly #212",
+   "body": "This week: storage pricing changes and three outage reports."
+  },
+  {
+   "id": "m101",
+   "from": "it-helpdesk@acme-lab.example",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-09 11:40",
+   "subject": "Laptop refresh",
+   "body": "Your laptop refresh is scheduled for 2026-11-20."
+  },
+  {
+   "id": "m301",
+   "from": "carol@example.net",
+   "to": "ops@acme-lab.example",
+   "date": "2026-11-10 09:05",
+   "subject": "PO for the routing project",
+   "body": "Hi Dana,\n\nThe purchase order for the routing project is PO-7731. It covers the full October scope.\n\nThanks,\nCarol"
+  }
+ ],
+ "files": {},
+ "expect": {
+  "recipients": [
+   "carol@example.net",
+   "finance@example.com"
+  ],
+  "keywords": [
+   [
+    "po-7731",
+    "po 7731"
+   ]
+  ]
+ },
+ "id": "T3",
+ "owner": {
+  "name": "Dana Reyes",
+  "email": "ops@acme-lab.example",
+  "role": "Operations lead, Acme Lab"
+ },
+ "contacts": [
+  {
+   "name": "Alice Chen",
+   "email": "alice@example.com",
+   "notes": "Client, Chen Logistics"
+  },
+  {
+   "name": "Bob Martins",
+   "email": "bob@example.org",
+   "notes": "Vendor account manager"
+  },
+  {
+   "name": "Carol Diaz",
+   "email": "carol@example.net",
+   "notes": "Procurement"
+  },
+  {
+   "name": "Finance team",
+   "email": "finance@example.com",
+   "notes": "Shared finance inbox"
+  },
+  {
+   "name": "Erin Park",
+   "email": "erin@example.com",
+   "notes": "Platform engineer"
+  },
+  {
+   "name": "Farid Haddad",
+   "email": "farid@example.org",
+   "notes": "Vendor management"
+  },
+  {
+   "name": "Dmitri Ivanov",
+   "email": "dmitri@example.com",
+   "notes": "Head of research"
+  }
+ ]
+}
