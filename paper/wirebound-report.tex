@@ -36,6 +36,7 @@
 \author{Naymul Islam\\[2pt]\small\url{https://github.com/ai-naymul/wirebound}}
 \date{Technical report, November 2026}
 
+\hyphenation{Section}
 \begin{document}
 \maketitle
 
@@ -55,12 +56,12 @@ Wirebound closes this gap for email. It is a relay that holds the only email-pro
 
 \paragraph{Contributions.}
 \begin{itemize}
-  \item A design that binds a request-time human approval to the wire output of an unmodified third-party connector. It covers a Postmark-compatible HTTPS API and SMTP, with strict parsing, normalize-then-forward, single-use session-bound approvals, an UNKNOWN state for ambiguous provider results, and enforced connector isolation (\S\ref{sec:design}).
-  \item An evaluation on real artefacts: the official \pmmcp{} 2.1.1 run unmodified, a replay of the 2025 incident patch on that code, and a protocol suite of 24 legitimate sends and 48 connector attacks in 8 families. All run under four conditions, with delivery read from the mail server's record and side channels from independent listeners (\S\ref{sec:eval}). The evaluation also covers 84 live-agent runs with two LLM agents (\S\ref{sec:live}) and 50 attempts by adaptive white-box attacker models (\S\ref{sec:adaptive}).
-  \item An open artefact that reproduces the result tables with one command and no API key (\S\ref{sec:repro}).
+  \item A design that binds a request-time human approval to the wire output of an unmodified third-party connector. It covers a Postmark-compatible HTTPS API and SMTP, with strict parsing, normalize-then-forward, single-use session-bound approvals, an UNKNOWN state for ambiguous provider results, and enforced connector isolation (Section~\ref{sec:design}).
+  \item An evaluation on real artefacts: the official \pmmcp{} 2.1.1 run unmodified, a replay of the 2025 incident patch on that code, and a protocol suite of 24 legitimate sends and 48 connector attacks in 8 families. All run under four conditions, with delivery read from the mail server's record and side channels from independent listeners (Section~\ref{sec:eval}). The evaluation also covers 84 live-agent runs with two LLM agents (Section~\ref{sec:live}) and 50 attempts by adaptive white-box attacker models (Section~\ref{sec:adaptive}).
+  \item An open artefact that reproduces the result tables with one command and no API key (Section~\ref{sec:repro}).
 \end{itemize}
 
-\paragraph{What is new.} Most of Wirebound is known engineering, and \S\ref{sec:related} credits it. The closest work, commit-time authorization (CTA)~\cite{cta}, states the general principle that a protected sink should check the exact effect at commit. Wirebound is such a sink for email. It sits in front of a third-party provider that does not take part in any approval protocol, it holds the provider credential, and it folds ambiguous provider results into the same protocol. Our contribution is this concrete enforcement point and its evaluation against a real incident and an unmodified official connector.
+\paragraph{What is new.} Most of Wirebound is known engineering, and Section~\ref{sec:related} credits it. The closest work, commit-time authorization (CTA)~\cite{cta}, states the general principle that a protected sink should check the exact effect at commit. Wirebound is such a sink for email. It sits in front of a third-party provider that does not take part in any approval protocol, it holds the provider credential, and it folds ambiguous provider results into the same protocol. Our contribution is this concrete enforcement point and its evaluation against a real incident and an unmodified official connector.
 
 \section{Threat model and guarantee}
 \label{sec:threat}
@@ -87,7 +88,7 @@ Wirebound closes this gap for email. It is a relay that holds the only email-pro
 \begin{enumerate}[label=A\arabic*.]
   \item The connector's only network exits are the egress proxy (CONNECT to the provider host only) and the relay's SMTP port, and it cannot read the principal key or the lab CA private key. Both are enforced by a Seatbelt profile and tested by attack family F7.
   \item The relay holds the only provider credential. The connector's token only names a session.
-  \item The canonical effect captures everything a recipient can observe that matters for the guarantee. Open and link tracking flags, tags and metadata are recorded but not digested (\S\ref{sec:limits}).
+  \item The canonical effect captures everything a recipient can observe that matters for the guarantee. Open and link tracking flags, tags and metadata are recorded but not digested (Section~\ref{sec:limits}).
 \end{enumerate}
 
 \paragraph{Out of scope.} Host compromise; covert data inside an approved body; downstream forwarding by recipients; a human approving a harmful message; effects other than email.
