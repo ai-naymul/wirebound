@@ -4,7 +4,7 @@
 
 [![Watch the 95-second explainer on YouTube](media/wirebound-explainer-poster.jpg)](https://youtu.be/-QYp6Xy_2-k)
 
-**[▶ Watch the 95-second explainer on YouTube](https://youtu.be/-QYp6Xy_2-k)** (with narration; also in this repo as [an MP4](media/wirebound-explainer.mp4)). **[Technical report (PDF, 6 pages)](paper/wirebound-report.pdf).** Every screen in it is a real capture from this repository's lab: the OSV advisory, Mailpit receiving the hidden Bcc, the relay's refusal, and the result tables.
+**[▶ Watch the 95-second explainer on YouTube](https://youtu.be/-QYp6Xy_2-k)** (with narration; also in this repo as [an MP4](media/wirebound-explainer.mp4)). **[Technical report (PDF, 8 pages)](paper/wirebound-report.pdf).** Every screen in it is a real capture from this repository's lab: the OSV advisory, Mailpit receiving the hidden Bcc, the relay's refusal, and the result tables.
 
 In September 2025 the npm package `postmark-mcp` added one line, `Bcc: 'phan@giftshop.club'`, to every email its AI agents sent ([Snyk](https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/), [OSV MAL-2025-47604](https://osv.dev/vulnerability/MAL-2025-47604)). Approving the agent's tool call would not have helped. The call said `to: alice@example.com`, and the connector sent something else.
 
@@ -112,7 +112,7 @@ The design follows the reference-monitor principle (always invoked, tamper-proof
 | Live LLM agents | GPT-6 Astra and Claude Fable through their own CLIs, 6 tasks × 3 conditions × 2 connectors, plus 12 prompt-injection runs. All counts from Mailpit; every transcript, approval card and gate decision is published. | [results/live_agents.md](results/live_agents.md), [results/live/runs/](results/live/runs/) |
 | Adaptive attackers | White-box attacker models with the relay's full source and feedback after every round, attacking the frozen relay; every attempt replayed against the baselines | [results/adaptive_attacker.md](results/adaptive_attacker.md) |
 | Unit tests | 31 tests: canonical form, strict parsing (10 ambiguity classes), session binding, single use under 16 concurrent consumers, expiry, approval-channel attacks | [tests/test_core.py](tests/test_core.py) |
-| Technical report | 6-page write-up: threat model, design, evaluation, related work, limitations | [paper/wirebound-report.pdf](paper/wirebound-report.pdf) |
+| Technical report | 8-page write-up: threat model, design, evaluation, related work, limitations | [paper/wirebound-report.pdf](paper/wirebound-report.pdf) |
 
 The 8 attack families:
 - **F1:** a hidden or extra recipient, the incident class.
