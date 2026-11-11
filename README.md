@@ -4,7 +4,7 @@
 
 [![Watch the 95-second explainer on YouTube](media/wirebound-explainer-poster.jpg)](https://youtu.be/-QYp6Xy_2-k)
 
-**[▶ Watch the 95-second explainer on YouTube](https://youtu.be/-QYp6Xy_2-k)** (with narration; also in this repo as [an MP4](media/wirebound-explainer.mp4)). Every screen in it is a real capture from this repository's lab: the OSV advisory, Mailpit receiving the hidden Bcc, the relay's refusal, and the result tables.
+**[▶ Watch the 95-second explainer on YouTube](https://youtu.be/-QYp6Xy_2-k)** (with narration; also in this repo as [an MP4](media/wirebound-explainer.mp4)). **[Technical report (PDF, 6 pages)](paper/wirebound-report.pdf).** Every screen in it is a real capture from this repository's lab: the OSV advisory, Mailpit receiving the hidden Bcc, the relay's refusal, and the result tables.
 
 In September 2025 the npm package `postmark-mcp` added one line, `Bcc: 'phan@giftshop.club'`, to every email its AI agents sent ([Snyk](https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/), [OSV MAL-2025-47604](https://osv.dev/vulnerability/MAL-2025-47604)). Approving the agent's tool call would not have helped. The call said `to: alice@example.com`, and the connector sent something else.
 
@@ -25,6 +25,37 @@ Wirebound is a relay that holds the only email-provider credential. It checks th
 | Tool call approved at the connector's entry | 24/24 | 35/48 |
 | Wirebound relay, connector not isolated | 24/24 | 3/48 (all side channels) |
 | **Wirebound** (relay + isolated connector) | **24/24** | **0/48** |
+
+**Live LLM agents.** GPT-6 Astra (Codex CLI) and Claude Fable (Claude Code CLI) each did 6 email tasks that need lookups in an inbox, files and contacts first. They sent through an approval gate and the real Postmark connector ([full table](results/live_agents.md), [every transcript](results/live/runs/)):
+
+| Connector | Condition | Task email delivered | Hidden Bcc leaked |
+|---|---|---|---|
+| Official | Tool call approved (the usual design) | 12/12 | 0/12 |
+| Official | **Wirebound** | **12/12** | **0/12** |
+| 2025 incident patch | Tool call approved (the usual design) | 12/12 | **12/12** |
+| 2025 incident patch | **Wirebound** | 0/12: refused, and both agents told the user the send had failed | **0/12** |
+
+**Adaptive attackers.** The 48 suite attacks were written by us. To go beyond them, three attacker models (Claude Fable, and DeepSeek V4.1 Flash and Qwen 3.8 Flash, both open weights) each ran their own campaign against the frozen relay. Each got its full source, the approved message, and after every round the outcome of each attempt. The attacks are data (raw HTTPS, TLS, TCP, UDP and SMTP), run from inside the connector's sandbox ([every attempt](results/adaptive_attacker.md)):
+
+| | Attempts that caused harm |
+|---|---|
+| Same attempts, tool call approved at the connector's entry | 22/50 |
+| Same attempts, Wirebound relay, connector not isolated | 3/50 (all side channels) |
+| **Wirebound** | **0/50** |
+
+They tried:
+- HTTP pipelining and request smuggling;
+- spending one approval twice across HTTPS, SMTP and `/email/batch`;
+- several SMTP transactions in one session;
+- Unicode and RFC 2231 tricks in attachment names;
+- alternate loopback addresses to escape the sandbox.
+
+Three other attacker models produced nothing:
+- GPT-6 Astra declined (its provider's cyber-safety filter).
+- Gemini 3.8 Flash's prompt was blocked.
+- GLM 5.3 could not run with reasoning switched off.
+
+These are recorded, and no prompt was reworded to get around a filter.
 
 Harm means any of these:
 - an unapproved recipient, content or reply route was delivered;
@@ -78,7 +109,10 @@ The design follows the reference-monitor principle (always invoked, tamper-proof
 |---|---|---|
 | Real connector | The official Postmark MCP connector works unmodified through the relay (6/6). The 2025 incident patch leaks 5/6 under tool-call approval and 0/6 under Wirebound. | [results/real_connectors.md](results/real_connectors.md) |
 | Protocol suite | 24 legitimate sends (HTTPS and SMTP; Cc, approved Bcc, Reply-To, HTML, attachments, IDN, Unicode, long bodies) plus 48 attacks in 8 families, run under 4 conditions | [results/protocol_suite.md](results/protocol_suite.md) |
+| Live LLM agents | GPT-6 Astra and Claude Fable through their own CLIs, 6 tasks × 3 conditions × 2 connectors, plus 12 prompt-injection runs. All counts from Mailpit; every transcript, approval card and gate decision is published. | [results/live_agents.md](results/live_agents.md), [results/live/runs/](results/live/runs/) |
+| Adaptive attackers | White-box attacker models with the relay's full source and feedback after every round, attacking the frozen relay; every attempt replayed against the baselines | [results/adaptive_attacker.md](results/adaptive_attacker.md) |
 | Unit tests | 31 tests: canonical form, strict parsing (10 ambiguity classes), session binding, single use under 16 concurrent consumers, expiry, approval-channel attacks | [tests/test_core.py](tests/test_core.py) |
+| Technical report | 6-page write-up: threat model, design, evaluation, related work, limitations | [paper/wirebound-report.pdf](paper/wirebound-report.pdf) |
 
 The 8 attack families:
 - **F1:** a hidden or extra recipient, the incident class.
@@ -96,7 +130,7 @@ See [LIMITATIONS.md](LIMITATIONS.md). In short:
 - **Scope:** email only, with the Postmark-compatible HTTPS API and SMTP. No template sends.
 - **Isolation:** relies on macOS Seatbelt in this lab; containers or network namespaces would be used elsewhere.
 - **Baselines:** use a permissive provider model.
-- **Live agents:** runs with real LLM agents are the next update.
+- **Live agents:** the approver is scripted, not a person, and each cell ran once. In the 12 prompt-injection runs neither agent followed the injected instruction, so those runs did not test the approval step.
 - **Not preregistered:** the attack families were written before measuring, and the fixes made after the first run are listed openly.
 
 ## Repository
@@ -106,11 +140,16 @@ wirebound/   model.py (effects, strict parsing, digests)  relay.py (HTTPS + SMTP
              approvals.py (composer, cards, digest-bound approvals)  store.py (SQLite ledger, atomic consume)
              egress.py (CONNECT allowlist proxy)  sandbox.py (Seatbelt profile)  certs.py (lab CA)  lab.py (launcher)
 connectors/  mock_mcp/ (benign + 7 malicious behaviour families)
-attacks/     cases.py, suite.py (protocol suite), real_connectors.py (official connector + incident replay)
-eval/        tabulate.py, demo.py
+agents/      run_live.py (Codex and Claude CLIs as agents), gate_mcp.py (approval gate), workspace_mcp.py, tasks.py, prompts/
+attacks/     cases.py, suite.py (protocol suite), real_connectors.py (official connector + incident replay),
+             adaptive.py + executor.py (adaptive attackers; attacks are data, run inside the connector sandbox), prompts/
+eval/        tabulate.py, tabulate_live.py, demo.py
 tests/       unit tests
-results/     result tables (raw logs are regenerated by make verify)
+paper/       technical report (LaTeX + PDF)
+results/     result tables; live/ and adaptive/ hold the raw model-run logs (the suite's raw logs are regenerated by make verify)
 ```
+
+`make live` and `make adaptive` rerun the model experiments. They need the Codex and Claude Code CLIs logged in, and for the adaptive attackers, `GEMINI_API_KEY` and `OPENROUTER_API_KEY`. Their raw logs are committed, so `make tables` rebuilds every table without them.
 
 Requirements: macOS (for `sandbox-exec`), Python 3.12 via [uv](https://github.com/astral-sh/uv), Node ≥ 22.21 (for `NODE_USE_ENV_PROXY`), and [Mailpit](https://github.com/axllent/mailpit).
 
